@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Yael Aromatics</title>
     <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- FontAwesome CDN -->
@@ -19,9 +18,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+
+    <!-- CARRITO -->
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+        <div class="offcanvas-header">
+            <button class="btn" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+                <i class="fa-solid fa-xmark fa-xl"></i>
+            </button>
+        </div>
+
+        <div class="offcanvas-body" id="carrito">
+            <h3 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+                <i class="fa-sharp fa-solid fa-cart-shopping mx-3"></i>Carrito
+            </h3>
+
+            <div class="row container-carrito" id="container-carrito">
+
+            </div>
+
+            <h3 class="offcanvas-title" id="subTotal"></h3>
+
+            <div class="d-grid gap-3">
+                <button class="btn btn-danger" type="button" id="vaciar-carrito">Vaciar
+                    Carrito</button>
+                <button class="btn btn-dark" type="button" id="comprar-carrito">Finalizar Compra</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- end of CARRITO -->
 
     <!-- HEADER -->
 
@@ -36,11 +72,20 @@
                     <img src="./img/logo.svg" alt="Logo - Yael Aromatics">
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div class="d-flex align-items-center justify-content-between">
+
+                    <button class="btn d-md-none" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
@@ -60,14 +105,15 @@
                             <a class="nav-link" href="pages/contacto.html">Contacto</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                        <li class="nav-item d-none d-md-flex">
+                            <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample">
                                 <i class="fa-solid fa-cart-shopping"></i>
+                                <span id="cantidad-carrito" class="cantidad-carrito"></span>
                             </a>
                         </li>
 
                         <li class="nav-item d-none d-md-block">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link disabled" href="#">
                                 <span>|</span>
                             </a>
                         </li>
@@ -109,7 +155,9 @@
 
         <section id="productos-destacados" class="container">
 
-            <div class="row">
+
+
+            <div class="row" id="container-destacados">
 
                 <div class="col-12 my-3">
 
@@ -126,28 +174,6 @@
 
                 </div>
 
-                <div class="col-6 col-md-3 product-card">
-                    <img src="img/productos/product.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 product-card">
-                    <img src="img/productos/product-2.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 product-card">
-                    <img src="img/productos/product-3.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 product-card">
-                    <img src="img/productos/product-4.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-
-
             </div>
 
         </section>
@@ -158,7 +184,7 @@
 
         <section id="velas-aromaticas" class="container">
 
-            <div class="row">
+            <div class="row" id="container-velas">
 
                 <div class="col-12 my-3">
 
@@ -176,38 +202,6 @@
 
                 </div>
 
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product-2.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product-3.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product-4.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="d-none col-lg-2 d-lg-flex product-card">
-                    <img src="img/productos/product-5.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="d-none col-lg-2 d-lg-flex product-card">
-                    <img src="img/productos/product-6.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-
-
             </div>
 
         </section>
@@ -218,7 +212,7 @@
 
         <section id="difusores" class="container">
 
-            <div class="row">
+            <div class="row" id="container-difusores">
 
                 <div class="col-12 my-3">
 
@@ -234,38 +228,6 @@
                     </div>
 
                 </div>
-
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product-2.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product-3.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2 product-card">
-                    <img src="img/productos/product-4.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="d-none col-lg-2 d-lg-flex product-card">
-                    <img src="img/productos/product-5.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-                <div class="d-none col-lg-2 d-lg-flex product-card">
-                    <img src="img/productos/product-6.svg" alt="Vela" class="img-fluid rounded">
-                    <p class="fw-medium m-0">Vela Aromatica - MOR</p>
-                    <p class="fw-semibold m-0">$2900</p>
-                </div>
-
 
             </div>
 
@@ -307,10 +269,15 @@
 
 
     <!-- Boostrap JS -->
-    <!-- <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
 
 </body>
 
